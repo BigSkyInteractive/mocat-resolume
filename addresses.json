@@ -1,6 +1,6 @@
 {
-  "_comment": "Every OSC address TouchFree sends on the Body Data Stream. Generated from edge/body_detector.LANDMARK_NAMES; do not hand-edit. One float per address, always. Everything is a float, flags included.",
-  "schema": "touchfree-osc-1",
+  "_comment": "Every OSC address MoCat sends on the Body Data Stream. Generated from edge/body_detector.LANDMARK_NAMES; do not hand-edit. One float per address, always. Everything is a float, flags included.",
+  "schema": "mocat-osc-1",
   "transport": {
     "protocol": "OSC 1.0 over UDP",
     "rate_hz": 30,
@@ -8,7 +8,7 @@
     "bundling": "packed into bundles under 1472 bytes so nothing fragments"
   },
   "presence": {
-    "/touchfree/person": {
+    "/mocat/person": {
       "units": "flag",
       "range": [
         0.0,
@@ -19,21 +19,21 @@
   },
   "screen_2d": {
     "_note": "Mirrored screen space, already normalised. +x right, +y DOWN, so invert y whenever 'up' should mean 'more'. Needs Body landmarks on.",
-    "/touchfree/2d/<joint>/x": {
+    "/mocat/2d/<joint>/x": {
       "units": "fraction of frame width",
       "range": [
         0.0,
         1.0
       ]
     },
-    "/touchfree/2d/<joint>/y": {
+    "/mocat/2d/<joint>/y": {
       "units": "fraction of frame height",
       "range": [
         0.0,
         1.0
       ]
     },
-    "/touchfree/2d/<joint>/vis": {
+    "/mocat/2d/<joint>/vis": {
       "units": "confidence",
       "range": [
         0.0,
@@ -43,7 +43,7 @@
   },
   "metric_3d": {
     "_note": "Metres, not mirrored, anatomical. +x the body's own right, +y up, +z the way it faces. Needs Body 3D metric on as well.",
-    "/touchfree/3d/valid": {
+    "/mocat/3d/valid": {
       "units": "flag",
       "range": [
         0.0,
@@ -51,26 +51,26 @@
       ],
       "note": "gate the rest of /3d on this"
     },
-    "/touchfree/3d/position/x|y|z": {
+    "/mocat/3d/position/x|y|z": {
       "units": "metres",
       "note": "hip midpoint"
     },
-    "/touchfree/3d/rotation/x|y|z": {
+    "/mocat/3d/rotation/x|y|z": {
       "units": "degrees",
       "note": "can flip to the mirror-image answer; prefer position"
     },
-    "/touchfree/3d/distance": {
+    "/mocat/3d/distance": {
       "units": "metres",
       "note": "from the camera"
     },
-    "/touchfree/3d/quality": {
+    "/mocat/3d/quality": {
       "units": "pixels",
       "note": "solve residual, lower is better"
     },
-    "/touchfree/3d/<joint>/x|y|z": {
+    "/mocat/3d/<joint>/x|y|z": {
       "units": "metres"
     },
-    "/touchfree/3d/<joint>/vis": {
+    "/mocat/3d/<joint>/vis": {
       "units": "confidence",
       "range": [
         0.0,
@@ -80,14 +80,14 @@
   },
   "hands": {
     "_note": "21 points per hand from a dedicated hand model. Needs Hand landmarks on.",
-    "/touchfree/hand/left/<0-20>/x|y": {
+    "/mocat/hand/left/<0-20>/x|y": {
       "units": "fraction of frame",
       "range": [
         0.0,
         1.0
       ]
     },
-    "/touchfree/hand/right/<0-20>/x|y": {
+    "/mocat/hand/right/<0-20>/x|y": {
       "units": "fraction of frame",
       "range": [
         0.0,
@@ -95,7 +95,7 @@
       ]
     }
   },
-  "silence_means_unseen": "A joint the camera could not see is NOT sent: its x, y, z and vis all stop together. Hold your last value, and use a timeout on the address rather than watching vis, which stops too. Gate the whole mapping on /touchfree/person.",
+  "silence_means_unseen": "A joint the camera could not see is NOT sent: its x, y, z and vis all stop together. Hold your last value, and use a timeout on the address rather than watching vis, which stops too. Gate the whole mapping on /mocat/person.",
   "joints": [
     "nose",
     "left_eye",

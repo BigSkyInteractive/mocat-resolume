@@ -13,7 +13,7 @@ can correct the belief rather than guess at what we meant.
 
 **We believe: no.** Resolume's documentation says "The addresses are all fixed
 and set up already", and we found no learn mode for an *incoming* address, the
-way MIDI learn works. So we think `/touchfree/2d/right_wrist/y` cannot be
+way MIDI learn works. So we think `/mocat/2d/right_wrist/y` cannot be
 pointed at a parameter in plain Arena at all.
 
 **Why it matters:** everything else here exists to work around this. If there

@@ -1,7 +1,7 @@
 # Five proposed mappings
 
 **Status: a proposal, not a specification.** The structure below follows from
-what TouchFree sends, which is Verified. Every constant is Assumption: we chose
+what MoCat sends, which is Verified. Every constant is Assumption: we chose
 them at a desk, and not one has been tested on a person in a room.
 
 They are written as arithmetic rather than as Wire nodes so that they can be
@@ -40,7 +40,7 @@ rest value may read better on a big screen than freezing.
 ## 1. Hand height to effect intensity
 
 ```
-read  y = /touchfree/2d/right_wrist/y        # 0 at the top, 1 at the bottom
+read  y = /mocat/2d/right_wrist/y        # 0 at the top, 1 at the bottom
 
 out = clamp01(unlerp(Y_LOW, Y_HIGH, y))      # reversed args, so it inverts
 ```
@@ -63,7 +63,7 @@ the patch and no OSC is sent at all.
 ## 2. Left to right position to a layer position or clip playhead
 
 ```
-read  x = /touchfree/2d/left_hip/x           # already 0 to 1 across the view
+read  x = /mocat/2d/left_hip/x           # already 0 to 1 across the view
 
 out = clamp01(x)                             # or 1 - x
 ```
@@ -83,8 +83,8 @@ whole body.
 ## 3. Distance to opacity or blur
 
 ```
-read  valid = /touchfree/3d/valid
-      d     = /touchfree/3d/distance          # metres
+read  valid = /mocat/3d/valid
+      d     = /mocat/3d/distance          # metres
 
 if valid < 0.5: hold
 out = clamp01(unlerp(D_FAR, D_NEAR, d))       # 1.0 close, 0.0 far
@@ -97,8 +97,8 @@ distance has no natural maximum the way a screen fraction does.
 
 Reverse the last line if far should mean more.
 
-Needs **Body 3D, metric** switched on in TouchFree, otherwise `valid` stays 0
-and nothing under `/touchfree/3d/` arrives.
+Needs **Body 3D, metric** switched on in MoCat, otherwise `valid` stays 0
+and nothing under `/mocat/3d/` arrives.
 
 **Destination (unconfirmed):** `/composition/layers/1/video/opacity`, or a blur
 effect's amount.
@@ -106,8 +106,8 @@ effect's amount.
 ## 4. Arm spread to scale
 
 ```
-read  lx,ly,lz = /touchfree/3d/left_wrist/x, /y, /z     # metres
-      rx,ry,rz = /touchfree/3d/right_wrist/x, /y, /z
+read  lx,ly,lz = /mocat/3d/left_wrist/x, /y, /z     # metres
+      rx,ry,rz = /mocat/3d/right_wrist/x, /y, /z
 
 spread = sqrt((lx-rx)^2 + (ly-ry)^2 + (lz-rz)^2)        # metres
 out    = clamp01(unlerp(S_MIN, S_MAX, spread))
@@ -137,7 +137,7 @@ cap the output well below 1.0. We do not know what a normal ceiling is here.
 ## 5. Presence to opacity
 
 ```
-read  p = /touchfree/person
+read  p = /mocat/person
 
 out = ease(p, tau = T_FADE)                   # p is a hard 0.0 or 1.0
 ```
